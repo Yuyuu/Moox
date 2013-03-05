@@ -1,7 +1,8 @@
 package dcll.groupe1.moox.parserImpl;
 
-import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -84,10 +85,16 @@ public class XmlParser implements ParserInterface{
 	public Tag parse(URI uri) throws ParserException {
 		Element root;
 		Document doc = new Document();
-		File file = new File(uri);
+		URL test = null;
+		try {
+			test = uri.toURL();
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+		}
 		SAXBuilder sxb = new SAXBuilder();
 		try {
-			doc = sxb.build(file);
+			
+			doc = sxb.build(test);
 		} catch (Exception e) {}
 		root = doc.getRootElement();
 		
