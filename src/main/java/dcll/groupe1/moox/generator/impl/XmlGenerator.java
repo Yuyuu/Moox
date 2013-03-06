@@ -10,39 +10,50 @@ import dcll.groupe1.moox.domain.Tag;
 import dcll.groupe1.moox.generator.GeneratorException;
 import dcll.groupe1.moox.generator.GeneratorInterface;
 
+/**
+ * The class XmlGenerator provides the method to generate a XML formatted string
+ * of a given tag.
+ * @author Vincent
+ */
 public class XmlGenerator implements GeneratorInterface {
 
 	public String generate(Tag root) throws GeneratorException {
 		if (root == null)
 			throw new GeneratorException("Pas d'élément racine, impossible de générer le fichier.");
 		
-		// Le document XML
+		// XML document
 		Document doc = new Document();
 		
-		// La racine
+		// Root
 		Element xmlRoot = new Element(root.getName()).setText(root.getValue());
 		
-		// Ajout des attributs de la racine attributs de la racine
+		// Attributes of the root
 		for (Attribute att : root.getAttributes())
 			xmlRoot.setAttribute(att.getName(), att.getValue());
 		
-		// Génération récursive des fils
-		addAllChilds(xmlRoot, root);
+		// Generation of children nodes
+		addDescendants(xmlRoot, root);
 		
-		// Ajout de la racine au document
+		// Add the root to the document
 		doc.setRootElement(xmlRoot);
 		
-		// Transformation en String
 		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());		
 		return outputter.outputString(doc);
 	}
 	
-	private void addAllChilds(Element node, Tag content) {
+	/**
+	 * Recursively add the descendants of the given node
+	 * @param node Current node
+	 * @param content The content of the current node
+	 */
+	private void addDescendants(Element node, Tag content) {
 		for (Tag tag : content.getSubTags()) {
 			Element child = new Element(tag.getName()).setText(tag.getValue());
+			
 			for (Attribute att : tag.getAttributes())
 				child.setAttribute(att.getName(), att.getValue());
-			addAllChilds(child, tag);
+			
+			addDescendants(child, tag);
 			node.addContent(child);
 		}
 	}
