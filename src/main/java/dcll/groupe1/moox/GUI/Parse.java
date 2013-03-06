@@ -70,7 +70,7 @@ public class Parse {
 					t = parser.parse(uri);
 				} catch (ParserException e) {e.printStackTrace();}
 				
-				JsonGenerator json = new JsonGenerator();
+				JsonGenerator json = new JsonGenerator(true);
 				try {
 					ecritureFichier(json.generate(t),".json");
 				} catch (GeneratorException e) {e.printStackTrace();}
