@@ -1,4 +1,4 @@
-package dcll.groupe1.moox;
+package dcll.groupe1.moox.main;
 
 import dcll.groupe1.moox.GUI.GUI;
 

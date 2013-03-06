@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 import dcll.groupe1.moox.domain.Tag;
 import dcll.groupe1.moox.parser.ParserException;
-import dcll.groupe1.moox.parserImpl.XmlParser;
+import dcll.groupe1.moox.parser.impl.XmlParser;
 
 public class Parse {
 	
