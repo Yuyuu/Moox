@@ -50,6 +50,7 @@ public class Parse {
 			JOptionPane.showMessageDialog(j, "Le fichier ou l'URI n'est pas valide");
 		}
 		else{
+			@SuppressWarnings("unused")
 			Tag t = new Tag();
 			if (test.endsWith(".json")){
 				//JsonParser parser = new JsonParser();
@@ -75,7 +76,8 @@ public class Parse {
 		
 	}
 	 
-	 private static void ecritureFichier(String texte, String format){
+	 @SuppressWarnings("unused")
+	private static void ecritureFichier(String texte, String format){
 		 
 		 JFileChooser choix = new JFileChooser(); 
 		 choix.setCurrentDirectory(new File("."));

@@ -44,6 +44,7 @@ public class GUI extends JFrame{
         this.setTitle("JSON XML Converter");
         this.setSize(350, 150);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
 
         ouvrir.setText("Open");
         ouvrir.addActionListener(new java.awt.event.ActionListener() {
