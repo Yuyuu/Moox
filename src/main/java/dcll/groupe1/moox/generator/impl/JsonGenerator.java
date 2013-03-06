@@ -1,11 +1,8 @@
 package dcll.groupe1.moox.generator.impl;
 
-import java.io.File;
-import java.io.FileWriter;
+
 import java.io.IOException;
 import java.io.StringWriter;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import org.codehaus.jackson.JsonFactory;
@@ -16,8 +13,6 @@ import dcll.groupe1.moox.domain.Attribute;
 import dcll.groupe1.moox.domain.Tag;
 import dcll.groupe1.moox.generator.GeneratorException;
 import dcll.groupe1.moox.generator.GeneratorInterface;
-import dcll.groupe1.moox.parser.ParserException;
-import dcll.groupe1.moox.parser.impl.XmlParser;
 
 /**
  * Class to generate a JSON text from a Tag element.

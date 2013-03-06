@@ -2,11 +2,17 @@ package dcll.groupe1.moox.GUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
@@ -22,6 +28,11 @@ public class GUI extends JFrame{
 	private JButton ouvrir;
     private JButton convert;
     private JButton url;
+    private JMenu fichier;
+    private JMenu interr;
+    private JMenuItem quitter;
+    private JMenuItem apropos;
+    private JMenuBar barre;
     private JTextField status;
     private JPanel panel;
     
@@ -40,12 +51,31 @@ public class GUI extends JFrame{
         url = new JButton();
         status = new JTextField();
         panel = new JPanel();
+        interr = new JMenu("?");
+        fichier = new JMenu("File");
+        apropos = new JMenuItem();
+        quitter = new JMenuItem();
+        barre = new JMenuBar();
         
         this.setTitle("JSON XML Converter");
         this.setSize(350, 150);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
+        quitter.setText("Exit");
+        quitter.addActionListener(new ActionListener() {			
+			public void actionPerformed(ActionEvent evt) {
+				quitterActionPerformed(evt);
+			}
+		});
+        
+        apropos.setText("About");
+        apropos.addActionListener(new ActionListener() {			
+			public void actionPerformed(ActionEvent evt) {
+				aproposActionPerformed(evt);
+			}
+		});
+        
         ouvrir.setText("Open");
         ouvrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,6 +96,14 @@ public class GUI extends JFrame{
                 convertActionPerformed(evt);
             }
         });
+        
+        //Barre de menus
+        fichier.add(quitter);
+        interr.add(apropos);
+        barre.add(fichier);
+        barre.add(interr);
+        panel.add(barre);
+        setJMenuBar(barre);
         
         status.setText("Choose a file ...");
         status.setPreferredSize(new Dimension(300,30));
@@ -105,6 +143,23 @@ public class GUI extends JFrame{
     	
     }
     
+    /*
+     * 
+     * 
+     * 
+     * 
+     * 
+     * Plus bas se trouvent toutes les methodes d'appel de composants de la frame comme
+     * 
+     * la méthode d'ouverture d'un fichier, le "A propos" etc ...
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
+    
+    
     private void ouvrirActionPerformed(java.awt.event.ActionEvent evt) {                                         
     	selectionFichier();
     	switch (this.state) {
@@ -143,6 +198,43 @@ public class GUI extends JFrame{
     		status.setForeground(Color.BLACK);
     	}
 	}
+    
+    private void aproposActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    	switch (this.state) {
+            case E1:
+            	this.state = Enum.State.E2;
+                activateButton(state);
+                showAbout();
+                break;
+            case E2:
+                this.state = Enum.State.E2;
+                activateButton(state);
+                showAbout();
+                break;
+        }
+        
+    }  
+    
+    private void showAbout() {
+    	JOptionPane.showMessageDialog(this.panel,"Made by Yuyuu Team\n Moox project","About "+ this.getTitle(),JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	private void quitterActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    	
+    	switch (this.state) {
+            case E1:
+            	this.state = Enum.State.E1;
+                activateButton(state);
+                System.exit(NORMAL);
+                break;
+            case E2:
+                this.state = Enum.State.E2;
+                activateButton(state);
+                System.exit(NORMAL);
+                break;
+        }
+        
+    }
     
     private void urlActionPerformed(java.awt.event.ActionEvent evt) {                                         
     	selectionUrl();
