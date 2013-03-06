@@ -1,4 +1,4 @@
-package dcll.groupe1.moox.parserImpl;
+package dcll.groupe1.moox.parser.impl;
 
 import java.net.MalformedURLException;
 import java.net.URI;
