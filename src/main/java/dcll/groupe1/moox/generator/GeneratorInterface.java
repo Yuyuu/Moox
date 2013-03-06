@@ -11,6 +11,7 @@ import dcll.groupe1.moox.domain.Tag;
  *
  */
 public interface GeneratorInterface {
+	
 	/**
 	 * Generates the code of the given tag.
 	 * @param root The root tag.

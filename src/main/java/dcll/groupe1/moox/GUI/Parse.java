@@ -14,8 +14,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import dcll.groupe1.moox.domain.Tag;
+import dcll.groupe1.moox.generator.GeneratorException;
+import dcll.groupe1.moox.generator.impl.JsonGenerator;
 import dcll.groupe1.moox.parser.ParserException;
-import dcll.groupe1.moox.parserImpl.XmlParser;
+import dcll.groupe1.moox.parser.impl.XmlParser;
 
 public class Parse {
 	
@@ -55,27 +57,30 @@ public class Parse {
 				//JsonParser parser = new JsonParser();
 				//try {
 				//	t = parser.parse(uri);
-				//} catch (ParserException e) {
-				//	e.printStackTrace();
-				//}
-				//ecritureFichier(parser.generate(t),".xml");
+				//} catch (ParserException e) {e.printStackTrace();}
+				
+				//XmlGenerator xml = new XmlGenerator();
+				//try {
+				//	ecritureFichier(xml.generate(t),".json");
+				//} catch (GeneratorException e) {e.printStackTrace();}
 			}
 			else{
 				XmlParser parser = new XmlParser();
 				try {
 					t = parser.parse(uri);
-				} catch (ParserException e) {
-					e.printStackTrace();
-				}
-				//parser.affiche();
-				//ecritureFichier(parser.genetare(t),".json");
+				} catch (ParserException e) {e.printStackTrace();}
+				
+				JsonGenerator json = new JsonGenerator(true);
+				try {
+					ecritureFichier(json.generate(t),".json");
+				} catch (GeneratorException e) {e.printStackTrace();}
 			}
 			
 		}
 		
 	}
 	 
-	 private static void ecritureFichier(String texte, String format){
+	private static void ecritureFichier(String texte, String format){
 		 
 		 JFileChooser choix = new JFileChooser(); 
 		 choix.setCurrentDirectory(new File("."));
