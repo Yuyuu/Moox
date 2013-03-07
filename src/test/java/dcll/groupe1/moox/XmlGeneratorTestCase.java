@@ -23,7 +23,7 @@ public class XmlGeneratorTestCase extends TestCase {
 
 	@Before
 	public void setUp() {
-		//On parse testXml pour récupérer un Tag
+		// On parse testXml pour récupérer un Tag
 		f = new File("testXml.xml");
 		try {
 			tag = new XmlParser().parse(f.toURI());
@@ -34,15 +34,15 @@ public class XmlGeneratorTestCase extends TestCase {
 
 	@Test
 	public void testParser() throws Exception {
-		//On genere un fichier Xml à partir du Tag
+		// On genere un fichier Xml à partir du Tag
 		XmlGenerator xml = new XmlGenerator();
 		FileWriter fw = new FileWriter("toto.xml", false);
 		BufferedWriter output = new BufferedWriter(fw);
 		output.write(xml.generate(tag));
 		output.flush();
 		output.close();
-		
-		//On récupère un Tag à partir du fichier xml
+
+		// On récupère un Tag à partir du fichier xml
 		Tag test = null;
 		f = new File("toto.xml");
 		try {
@@ -51,8 +51,8 @@ public class XmlGeneratorTestCase extends TestCase {
 			e.printStackTrace();
 		}
 		f.delete();
-		
-		//Comparaison entre le Tag initial et le Tag issu de la génération
+
+		// Comparaison entre le Tag initial et le Tag issu de la génération
 		assertEquals(tag, test);
 	}
 }

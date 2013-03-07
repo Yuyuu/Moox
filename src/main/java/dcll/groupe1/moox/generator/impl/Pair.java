@@ -1,33 +1,44 @@
 package dcll.groupe1.moox.generator.impl;
 
 /**
- * @author http://stackoverflow.com/questions/521171/a-java-collection-of-value-pairs-tuples
- *
+ * @author 
+ *         http://stackoverflow.com/questions/521171/a-java-collection-of-value-pairs
+ *         -tuples
+ * 
  */
-public class Pair<L,R> {
+public class Pair<L, R> {
 
-	  private final L left;
-	  private final R right;
+	private final L left;
+	private final R right;
 
-	  public Pair(L left, R right) {
-	    this.left = left;
-	    this.right = right;
-	  }
+	public Pair(L left, R right) {
+		this.left = left;
+		this.right = right;
+	}
 
-	  public L getLeft() { return left; }
-	  public R getRight() { return right; }
+	public L getLeft() {
+		return left;
+	}
 
-	  @Override
-	  public int hashCode() { return left.hashCode() ^ right.hashCode(); }
+	public R getRight() {
+		return right;
+	}
 
-	  @SuppressWarnings("rawtypes")
 	@Override
-	  public boolean equals(Object o) {
-	    if (o == null) return false;
-	    if (!(o instanceof Pair)) return false;
+	public int hashCode() {
+		return left.hashCode() ^ right.hashCode();
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public boolean equals(Object o) {
+		if (o == null)
+			return false;
+		if (!(o instanceof Pair))
+			return false;
 		Pair pairo = (Pair) o;
-	    return this.left.equals(pairo.getLeft()) &&
-	           this.right.equals(pairo.getRight());
-	  }
+		return this.left.equals(pairo.getLeft())
+				&& this.right.equals(pairo.getRight());
+	}
 
 }

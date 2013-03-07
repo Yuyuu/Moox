@@ -19,8 +19,9 @@ import dcll.groupe1.moox.parser.ParserInterface;
 
 /**
  * Parse un fichier .json
+ * 
  * @author Laurent
- *
+ * 
  */
 public class JsonParser implements ParserInterface {
 	Tag tag;
@@ -61,7 +62,9 @@ public class JsonParser implements ParserInterface {
 
 	/**
 	 * Se positionne sur le token suivant le goal
-	 * @param goal token à atteindre
+	 * 
+	 * @param goal
+	 *            token à atteindre
 	 */
 	public void goAfter(String goal) {
 		try {
@@ -97,6 +100,7 @@ public class JsonParser implements ParserInterface {
 
 	/**
 	 * Parse un Tag json
+	 * 
 	 * @return le tag parsé
 	 */
 	public Tag parseTag() {
@@ -127,7 +131,7 @@ public class JsonParser implements ParserInterface {
 	}
 
 	/**
-	 * Parse un ensemble de sous-tags 
+	 * Parse un ensemble de sous-tags
 	 */
 	public void parseSubTags() {
 		goAfter("subTags");
