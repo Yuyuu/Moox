@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import dcll.groupe1.moox.domain.Tag;
 import dcll.groupe1.moox.generator.GeneratorException;
 import dcll.groupe1.moox.generator.impl.JsonGenerator;
+import dcll.groupe1.moox.generator.impl.XmlGenerator;
 import dcll.groupe1.moox.parser.ParserException;
 import dcll.groupe1.moox.parser.impl.XmlParser;
 
@@ -36,20 +37,24 @@ public class Parse {
 		else if (type.equals("URL")){
 			try {
 				url = new URL(s);
+				
 			} catch (MalformedURLException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
+				JOptionPane.showMessageDialog(j,"This URL is not valid", "URL invalid",1);
 			}
 			test = url.toString();
+			
 			try {
 				uri = url.toURI();
 			} catch (URISyntaxException e) {
 				e.printStackTrace();
 			}
+			
 		}
 		
 		
 		if (!((test.endsWith(".json")) || (test.endsWith(".xml")))){
-			JOptionPane.showMessageDialog(j, "Le fichier ou l'URI n'est pas valide");
+			JOptionPane.showMessageDialog(j, "File or URL invalid");
 		}
 		else{
 			Tag t = new Tag();
@@ -59,10 +64,10 @@ public class Parse {
 				//	t = parser.parse(uri);
 				//} catch (ParserException e) {e.printStackTrace();}
 				
-				//XmlGenerator xml = new XmlGenerator();
-				//try {
-				//	ecritureFichier(xml.generate(t),".json");
-				//} catch (GeneratorException e) {e.printStackTrace();}
+				XmlGenerator xml = new XmlGenerator();
+				try {
+					ecritureFichier(xml.generate(t),".xml");
+				} catch (GeneratorException e) {e.printStackTrace();}
 			}
 			else{
 				XmlParser parser = new XmlParser();
@@ -87,7 +92,6 @@ public class Parse {
 		 if (choix.showDialog(choix,new String("ENREGISTRER")) == JFileChooser.APPROVE_OPTION){		 
 		 
 			 String adressedufichier = (choix.getSelectedFile().toString()+format);
-			 System.out.println(adressedufichier);
 			 try
 				{
 					FileWriter fw = new FileWriter(adressedufichier, false);
