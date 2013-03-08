@@ -5,8 +5,9 @@ package dcll.groupe1.moox.generator;
 
 /**
  * Code generator exception.
+ * 
  * @author SERIN Kévin
- *
+ * 
  */
 public class GeneratorException extends Exception {
 	private static final long serialVersionUID = 1L;
@@ -47,7 +48,7 @@ public class GeneratorException extends Exception {
 	 */
 	public GeneratorException(String message, Throwable cause,
 			boolean enableSuppression, boolean writableStackTrace) {
-		//super(message, cause, enableSuppression, writableStackTrace);
+		// super(message, cause, enableSuppression, writableStackTrace);
 	}
 
 }
