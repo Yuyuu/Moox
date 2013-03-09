@@ -39,7 +39,6 @@ public class Parse {
 				url = new URL(s);
 				
 			} catch (MalformedURLException e) {
-				//e.printStackTrace();
 				JOptionPane.showMessageDialog(j,"This URL is not valid", "URL invalid",1);
 			}
 			test = url.toString();
@@ -67,6 +66,7 @@ public class Parse {
 				try {
 					ecritureFichier(xml.generate(t),".xml");
 				} catch (GeneratorException e) {e.printStackTrace();}
+				JOptionPane.showMessageDialog(j,"Conversion to XML ended.", "Finish",1);
 			}
 			else{
 
@@ -83,10 +83,12 @@ public class Parse {
 				} catch (GeneratorException e) {
 					e.printStackTrace();
 				}
+				JOptionPane.showMessageDialog(j,"Conversion to JSON ended.", "Finish",1);
 			}
 
 		}
-
+		
+		
 	}
 	 
 	private static void ecritureFichier(String texte, String format){
