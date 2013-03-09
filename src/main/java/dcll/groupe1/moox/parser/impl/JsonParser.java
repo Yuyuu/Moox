@@ -1,94 +1,98 @@
 package dcll.groupe1.moox.parser.impl;
 
-import java.io.File;
-
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
-import java.net.URI;
-
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.JsonToken;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import dcll.groupe1.moox.domain.Attribute;
 import dcll.groupe1.moox.domain.Tag;
-import dcll.groupe1.moox.parser.ParserException;
-import dcll.groupe1.moox.parser.ParserInterface;
 
-/**
- * Parse un fichier .json
- * 
- * @author Laurent
- * 
- */
-public class JsonParser implements ParserInterface {
-	Tag tag;
-	Tag root;
-	org.codehaus.jackson.JsonParser jParser;
+public class JsonParser {
 
-	public JsonParser() {
-		tag = new Tag();
-		root = new Tag();
+	public static void main(String args[]) {
+		InputStream f;
 		try {
+			f = new FileInputStream("testJson.json");
+			ObjectMapper mapper = new ObjectMapper();
+			JsonNode tree = mapper.readTree(f);
 
-			JsonFactory jfactory = new JsonFactory();
-			// récupération du fichier Json
-			jParser = jfactory
-					.createJsonParser(new File("MoodleXMLEnJson.json"));
+			Iterator<Entry<String, JsonNode>> p = tree.getFields();
 
-			// Début du traitement Parser
-			// parseTag();
+			Tag tag = new Tag();
+			while (p.hasNext()) {
+				Entry<String, JsonNode> node = p.next();
+				JsonNode value = node.getValue();
+				// si non { ou [
+				if (!value.isContainerNode()) {
+					tag.setValue(value.asText());
+				} else if (value.isArray()) {
+					System.out.println("*ARRAY : " + value);
+					// tableau d'attributs ou de subtags
+					// node = value.getFields().next();
+					switch (node.getKey()) {
+					case "attributes":
+						System.out.println("go att");
+						Iterator<JsonNode> att = value.getElements();
+						while (att.hasNext()) {
+							System.out.println("attribuuuuuuuuts");
+							JsonNode attribut = att.next();
+							Entry<String, JsonNode> toto = attribut.getFields().next();
+							Attribute attribute = new Attribute();
+							attribute.setName(toto.getKey());
+							attribute.setValue(toto.getValue().asText());
+							System.out.println(attribute);
+							tag.addAttribute(attribute);
+						}
 
-			// Fin du traitement Parser
-			jParser.close();
-		} catch (JsonGenerationException e) {
+						// System.out.println("attributes " +
+						// node.getValue().getFieldNames());
+						break;
+					case "subTags":
+						System.out.println("go sub");
+						break;
+					}
+				} else if (value.isObject()) {
+					// c'est un Tag
+					tag.setName(node.getKey());
+				}
+
+				// System.out.println("***" + value.getFields().hasNext());
+				if (!p.hasNext() && value.getFields().hasNext()) {
+					p = value.getFields();
+				}
+
+			}
+
+			// System.out.println(tag.getName());
+			// System.out.println(tag.getValue());
+			// Iterator<String> it = tree.getFieldNames();
+			// while(it.hasNext()) {
+			// System.out.println(it.next());
+			// }
+
+			/*
+			 * Tag tag = mapper.convertValue(tree.get("quiz"), ref);
+			 * System.out.println(tag.getName());
+			 * System.out.println(tag.getValue());
+			 * System.out.println(tag.getAttributes());
+			 * System.out.println(tag.getSubTags().get(0).getName());
+			 * System.out.println(tag.getSubTags().get(0).getValue());
+			 */
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * todo
-	 */
-	public Tag parse(URI uri) throws ParserException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * Se positionne sur le token suivant le goal
-	 * 
-	 * @param goal
-	 *            token à atteindre
-	 */
-	public void goAfter(String goal) {
-		try {
-			while (jParser.getCurrentName() != goal) {
-				jParser.nextToken();
-			}
-			jParser.nextToken();
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * méthode de test sur nextTextValue()
-	 */
-	public void test() {
-		try {
-			System.out.println(jParser.nextTextValue());
-
-		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -96,80 +100,5 @@ public class JsonParser implements ParserInterface {
 			e.printStackTrace();
 		}
 
-	}
-
-	/**
-	 * Parse un Tag json
-	 * 
-	 * @return le tag parsé
-	 */
-	public Tag parseTag() {
-		try {
-			String name = null;
-			while (jParser.getCurrentToken() != JsonToken.VALUE_STRING) {
-				System.out.println("token " + jParser.getText());
-				jParser.nextToken();
-			}
-			name = jParser.getText();
-			System.out.println("name " + name);
-			if (jParser.getCurrentToken() == JsonToken.START_OBJECT) {
-				tag.setName(name);
-				System.out.println("Name TAG : " + tag.getName());
-				goAfter("text");
-				tag.setValue(jParser.getText());
-				parseAttributes();
-				// parseSubTags();
-			}
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return tag;
-	}
-
-	/**
-	 * Parse un ensemble de sous-tags
-	 */
-	public void parseSubTags() {
-		goAfter("subTags");
-		Tag tmp;
-		tmp = parseTag();
-		while (!tmp.getName().equals("null")) {
-			tag.addTag(tmp);
-			tmp = parseTag();
-		}
-	}
-
-	/**
-	 * Parse un ensemble d'attributs
-	 */
-	public void parseAttributes() {
-		try {
-			goAfter("attributes");
-			Attribute attribute = new Attribute();
-			while (jParser.getCurrentToken() != JsonToken.END_ARRAY) {
-				goAfter("{");
-				attribute.setName(jParser.getCurrentName());
-				jParser.nextToken();
-				attribute.setValue(jParser.getCurrentName());
-				tag.addAttribute(attribute);
-				goAfter("}");
-			}
-
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public static void main(String[] args) {
-		JsonParser jp = new JsonParser();
-		jp.test();
 	}
 }

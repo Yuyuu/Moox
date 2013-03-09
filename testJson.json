@@ -1,0 +1,31 @@
+{
+  "quiz" : {
+    "text" : "toto",
+    "attributes" : [ {
+          "type1" : "category1"
+        }, {
+          "type2" : "category2"
+        }],
+    "subTags" : [ {
+      "question" : {
+        "text" : "test",
+        "attributes" : [ {
+          "type" : "category"
+        } ],
+        "subTags" : [ {
+          "category" : {
+            "text" : null,
+            "attributes" : [ ],
+            "subTags" : [ {
+              "text" : {
+                "text" : "$course$/Défaut pour 1SA3GL1",
+                "attributes" : [ ],
+                "subTags" : [ ]
+              }
+            } ]
+          }
+        } ]
+      }
+    } ]
+  }
+}
