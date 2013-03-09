@@ -15,8 +15,16 @@ import dcll.groupe1.moox.domain.Tag;
 import dcll.groupe1.moox.parser.ParserException;
 import dcll.groupe1.moox.parser.ParserInterface;
 
+/**
+ * Parse a json file into a Tag
+ * @author Laurent
+ *
+ */
 public class JsonParser implements ParserInterface {
 
+	/**
+	 * Parse from an uri 
+	 */
 	@Override
 	public Tag parse(URI uri) throws ParserException {
 		ObjectMapper mapper = new ObjectMapper();
@@ -32,10 +40,14 @@ public class JsonParser implements ParserInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return tag;
 	}
 
+	/**
+	 * Parse all childs from a node
+	 * @param nodeToParse node to parse
+	 * @return a parsed Tag
+	 */
 	private Tag parseTag(JsonNode nodeToParse) {
 		Tag t = new Tag();
 		Iterator<Entry<String, JsonNode>> p = nodeToParse.getFields();
@@ -57,7 +69,9 @@ public class JsonParser implements ParserInterface {
 								.next();
 						Attribute attribute = new Attribute();
 						attribute.setName(toto.getKey());
-						attribute.setValue(toto.getValue().asText());
+						if (!toto.getValue().isNull()) {
+							attribute.setValue(toto.getValue().asText());
+						}
 						t.addAttribute(attribute);
 					}
 					break;
@@ -78,24 +92,6 @@ public class JsonParser implements ParserInterface {
 			}
 
 		}
-
-		System.out.println("**Name : " + t.getName());
-		System.out.println("**Value : " + t.getValue());
-		System.out.println(t.getAttributes());
-		// System.out.println(tag.getSubTags().get(0).getName());
-		// System.out.println(tag.getSubTags().get(0).getValue());
 		return t;
 	}
-
-	public static void main(String args[]) {
-		File f = new File("testJson.json");
-		JsonParser jsp = new JsonParser();
-		try {
-			System.out.println(jsp.parse(f.toURI()));
-		} catch (ParserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 }
