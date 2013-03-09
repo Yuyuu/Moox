@@ -60,13 +60,12 @@ public class JsonParser implements ParserInterface {
 				t.setValue(value.asText());
 			} else if (value.isArray()) {
 				// tableau d'attributs ou de subtags
-				switch (node.getKey()) {
-				case "attributes":
+				switch (node.getKey().charAt(0)) {
+				case 'a':
 					Iterator<JsonNode> att = value.getElements();
 					while (att.hasNext()) {
 						JsonNode attribut = att.next();
-						Entry<String, JsonNode> toto = attribut.getFields()
-								.next();
+						Entry<String, JsonNode> toto = attribut.getFields().next();
 						Attribute attribute = new Attribute();
 						attribute.setName(toto.getKey());
 						if (!toto.getValue().isNull()) {
@@ -75,7 +74,7 @@ public class JsonParser implements ParserInterface {
 						t.addAttribute(attribute);
 					}
 					break;
-				case "subTags":
+				case 's':
 					Iterator<JsonNode> sub = value.getElements();
 					while (sub.hasNext()) {
 						JsonNode subTag = sub.next();
