@@ -6,9 +6,9 @@ public class Tag {
 
 	private String name;
 	private String value;
-	private ArrayList<Attribute> attributes = new ArrayList<Attribute>();
+	private ArrayList<Attribute> attributes = new ArrayList<Attribute>();;
 	private ArrayList<Tag> subTags = new ArrayList<Tag>();
-
+	
 	public void addAttribute(Attribute a) {
 		this.attributes.add(a);
 	}

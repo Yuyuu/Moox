@@ -66,16 +66,9 @@ public class JsonGenerator implements GeneratorInterface {
 
 		/* start the document */
 		try {
-			ArrayList<Pair<Tag, Integer>> stack = new ArrayList<Pair<Tag, Integer>>(); // stack
-																						// to
-																						// course
-																						// the
-																						// tag
-																						// tree:
-																						// (node,
-																						// level)
-			stack.add(new Pair<Tag, Integer>(root, 0)); // root is level 0 in
-														// the tree
+			/* stack to course the tag tree: (node, level) */
+			ArrayList<Pair<Tag, Integer>> stack = new ArrayList<Pair<Tag, Integer>>();
+			stack.add(new Pair<Tag, Integer>(root, 0)); // root is level 0
 
 			int lastLevel = -1;
 			while (!stack.isEmpty()) {
@@ -102,7 +95,10 @@ public class JsonGenerator implements GeneratorInterface {
 				lastLevel = level;
 
 				/* start a new object */
-				this.startNode(node.getName());
+				String name = node.getName();
+				if(name == null)
+					throw new GeneratorException("Node without name");
+				this.startNode(name);
 
 				/* Write the text field */
 				if (node.getValue() == null || node.getValue().isEmpty())
