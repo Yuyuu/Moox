@@ -27,9 +27,7 @@ public class XmlGenerator implements GeneratorInterface {
 		Document doc = new Document();
 
 		// Root
-		Element xmlRoot = new Element(root.getName());
-		if (root.getValue() != null && !root.getValue().equals("null"))
-			xmlRoot.setText(root.getValue());
+		Element xmlRoot = new Element(root.getName()).setText(root.getValue());
 
 		// Attributes of the root
 		for (Attribute att : root.getAttributes())
@@ -55,9 +53,7 @@ public class XmlGenerator implements GeneratorInterface {
 	 */
 	private void addDescendants(Element node, Tag content) {
 		for (Tag tag : content.getSubTags()) {
-			Element child = new Element(tag.getName());
-			if (tag.getValue() != null && !tag.getValue().equals("null"))
-				child.setText(tag.getValue());
+			Element child = new Element(tag.getName()).setText(tag.getValue());
 
 			for (Attribute att : tag.getAttributes())
 				child.setAttribute(att.getName(), att.getValue());
@@ -67,17 +63,17 @@ public class XmlGenerator implements GeneratorInterface {
 		}
 	}
 
-	
-	  /*public static void main(String args[]) { String fic =
-	  "file:////home/vincent/Dropbox/univ/master/s8/dcll/projet/Moox/MoodleXML.xml"
-	  ; String out = "file:////home/vincent/Bureau/moodGen.xml";
-	  
-	  try { XmlParser p = new XmlParser(); Tag root = p.parse(new URI(fic));
-	  String result = new XmlGenerator().generate(root); FileWriter w = new
-	  FileWriter(new File(new URI(out))); w.write(result); w.close(); } catch
-	  (GeneratorException e) { e.printStackTrace(); } catch (ParserException e)
-	  { e.printStackTrace(); } catch (URISyntaxException e) {
-	  e.printStackTrace(); } catch (IOException e) { e.printStackTrace(); } }*/
-	 
+	/*
+	 * public static void main(String args[]) { String fic =
+	 * "file:////home/vincent/Dropbox/univ/master/s8/dcll/projet/Moox/MoodleXML.xml"
+	 * ; String out = "file:////home/vincent/Bureau/moodGen.xml";
+	 * 
+	 * try { XmlParser p = new XmlParser(); Tag root = p.parse(new URI(fic));
+	 * String result = new XmlGenerator().generate(root); FileWriter w = new
+	 * FileWriter(new File(new URI(out))); w.write(result); w.close(); } catch
+	 * (GeneratorException e) { e.printStackTrace(); } catch (ParserException e)
+	 * { e.printStackTrace(); } catch (URISyntaxException e) {
+	 * e.printStackTrace(); } catch (IOException e) { e.printStackTrace(); } }
+	 */
 
 }

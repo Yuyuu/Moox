@@ -18,11 +18,19 @@ public class JsonParserTestCase {
 	File myFile;
 	
 	
+	/**
+	 * Define the file which will be used for the test
+	 */
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		myFile = new File("testJson.json");
 	}
-
+	
+	/**
+	 * Test the main method of JsonParser class
+	 * 
+	 * @throws ParserException
+	 */
 	@Test
 	public void testParse() throws ParserException {
 		Tag tag = new JsonParser().parse(myFile.toURI());
