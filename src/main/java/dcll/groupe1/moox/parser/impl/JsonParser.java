@@ -56,7 +56,13 @@ public class JsonParser implements ParserInterface {
 
 			// si non { ou [
 			if (!value.isContainerNode()) {
-				t.setValue(value.asText());
+				// Si la valeur en question est nulle alors on donne la valeur nulle au tag
+				if(value.isNull()) 
+					t.setValue(null);
+				
+				// Sinon on lui donne sa valeur effective
+				else
+					t.setValue(value.asText());
 			} else if (value.isArray()) {
 				// tableau d'attributs ou de subtags
 				switch (node.getKey().charAt(0)) {
