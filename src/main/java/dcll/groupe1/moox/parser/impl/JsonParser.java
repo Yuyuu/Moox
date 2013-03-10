@@ -25,7 +25,6 @@ public class JsonParser implements ParserInterface {
 	/**
 	 * Parse from an uri 
 	 */
-	@Override
 	public Tag parse(URI uri) throws ParserException {
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode tree;
