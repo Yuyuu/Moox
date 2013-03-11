@@ -99,8 +99,9 @@ public class Tag {
 			return t.attributes.equals(this.attributes)
 					&& t.subTags.equals(this.subTags)
 					&& t.name.equals(this.name);
-		} else
+		} else {
 			return false;
+		}
 	}
 
 	/**

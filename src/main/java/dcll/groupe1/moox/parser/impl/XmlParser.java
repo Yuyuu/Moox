@@ -1,5 +1,6 @@
 package dcll.groupe1.moox.parser.impl;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -7,7 +8,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jdom2.*;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 import dcll.groupe1.moox.domain.Attribute;
@@ -51,8 +54,9 @@ public class XmlParser implements ParserInterface {
 			t = new Tag();
 			Element courant = (Element) i.next();
 			t.setName(courant.getName());
-			if (!courant.getTextNormalize().equals(""))
+			if (!courant.getTextNormalize().equals("")) {
 				t.setValue(courant.getTextNormalize());
+			}
 			for (Iterator<?> att = courant.getAttributes().iterator(); att
 					.hasNext();) {
 				notreAttribut = new Attribute();
@@ -103,8 +107,9 @@ public class XmlParser implements ParserInterface {
 	 */
 	private void afficheListTags(ArrayList<Tag> l, int tabul) {
 		for (Iterator<Tag> i = l.iterator(); i.hasNext();) {
-			for (int j = 0; j < tabul; j++)
+			for (int j = 0; j < tabul; j++) {
 				System.out.print("      ");
+			}
 			Tag tag = (Tag) i.next();
 			System.out.print("Name: " + tag.getName() + " ");
 			for (Iterator<Attribute> att = tag.getAttributes().iterator(); att
@@ -126,15 +131,16 @@ public class XmlParser implements ParserInterface {
 		URL test = null;
 		try {
 			test = uri.toURL();
+			SAXBuilder sxb = new SAXBuilder();
+			doc = sxb.build(test);
 		} catch (MalformedURLException e1) {
 			e1.printStackTrace();
+		} catch (JDOMException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		SAXBuilder sxb = new SAXBuilder();
-		try {
-
-			doc = sxb.build(test);
-		} catch (Exception e) {
-		}
+		
 		root = doc.getRootElement();
 
 		this.rootTag.setName(root.getName());

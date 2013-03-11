@@ -22,5 +22,5 @@ public interface GeneratorInterface {
 	 * @throws GeneratorException
 	 *             If an error occurred during the generation.
 	 */
-	public String generate(Tag root) throws GeneratorException;
+	String generate(Tag root) throws GeneratorException;
 }

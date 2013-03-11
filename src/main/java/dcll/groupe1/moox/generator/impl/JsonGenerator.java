@@ -36,8 +36,9 @@ public class JsonGenerator implements GeneratorInterface {
 		try {
 			this.generator = factory.createJsonGenerator(out);
 
-			if (indent)
+			if (indent) {
 				this.generator.setPrettyPrinter(new DefaultPrettyPrinter());
+			}
 		} catch (IOException e) {
 			this.generator = null;
 		}
@@ -60,9 +61,10 @@ public class JsonGenerator implements GeneratorInterface {
 	 *             If an error occurred during the generation.
 	 */
 	public String generate(Tag root) throws GeneratorException {
-		if (this.generator == null)
+		if (this.generator == null) {
 			throw new GeneratorException(
 					"Impossibile to initialize the jackson generator");
+		}
 
 		/* start the document */
 		try {
@@ -96,15 +98,18 @@ public class JsonGenerator implements GeneratorInterface {
 
 				/* start a new object */
 				String name = node.getName();
-				if(name == null)
+				if (name == null) {
 					throw new GeneratorException("Node without name");
+				}
 				this.startNode(name);
 
 				/* Write the text field */
-				if (node.getValue() == null || node.getValue().isEmpty())
+				if (node.getValue() == null || node.getValue().isEmpty()) {
 					this.generator.writeNullField("text");
-				else
+				}
+				else {
 					this.generator.writeStringField("text", node.getValue());
+				}
 				// System.out.println("\"text\":\""+node.getValue()+"\"");
 
 				/* Write attributes */

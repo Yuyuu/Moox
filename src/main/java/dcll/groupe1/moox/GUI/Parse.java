@@ -52,7 +52,6 @@ public class Parse {
 		} else if (type.equals("URL")) {
 			try {
 				url = new URL(s);
-
 			} catch (MalformedURLException e) {
 				JOptionPane.showMessageDialog(j, "This URL is not valid",
 						"URL invalid", 1);
@@ -64,7 +63,6 @@ public class Parse {
 			} catch (URISyntaxException e) {
 				e.printStackTrace();
 			}
-
 		}
 
 		if (!((test.endsWith(".json")) || (test.endsWith(".xml")))) {
@@ -105,9 +103,7 @@ public class Parse {
 				JOptionPane.showMessageDialog(j, "Conversion to JSON ended.",
 						"Finish", 1);
 			}
-
 		}
-
 	}
 
 	/**

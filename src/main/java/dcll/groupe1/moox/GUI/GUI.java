@@ -20,7 +20,6 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.filechooser.FileFilter;
 
 import dcll.groupe1.moox.GUI.Enum.State;
-import dcll.groupe1.moox.GUI.Parse;
 
 /**
  * The graphical user interface of the application.
@@ -213,19 +212,21 @@ public class GUI extends JFrame {
 			convert.setEnabled(true);
 			status.setEnabled(true);
 			break;
+		default:
+			break;
 		}
 
 	}
 
 	/*
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
+	 *
+	 *
+	 *
+	 *
+	 *
 	 * Plus bas se trouvent toutes les methodes d'appel de composants de la
 	 * frame comme
-	 * 
+	 *
 	 * la méthode d'ouverture d'un fichier, le "A propos" etc ...
 	 */
 
@@ -246,15 +247,16 @@ public class GUI extends JFrame {
 			this.state = Enum.State.E2;
 			activateButton(state);
 			break;
+		default:
+			break;
 		}
-
 	}
 
 	/**
 	 * Handles the file selection.
 	 */
 	private void selectionFichier() {
-		JFileChooser chooser = new JFileChooser();// création dun nouveau
+		JFileChooser chooser = new JFileChooser(); // création dun nouveau
 													// filechosser
 		chooser.setApproveButtonText("Choix du fichier..."); // intitulé du
 																// bouton
@@ -275,19 +277,9 @@ public class GUI extends JFrame {
 		chooser.setFileFilter(ff);
 
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-			status.setText(chooser.getSelectedFile().getPath()); // si un
-																	// fichier
-																	// est
-																	// selectionné,
-																	// récupérer
-																	// le
-																	// fichier
-																	// puis sont
-																	// path et
-																	// l'afficher
-																	// dans le
-																	// champs de
-																	// texte
+			/* si un fichier est selectionné, récupérer le fichier
+			 * puis son path et l'afficher dans le champ de texte*/
+			status.setText(chooser.getSelectedFile().getPath());
 			status.setForeground(Color.BLACK);
 		}
 	}
@@ -309,6 +301,8 @@ public class GUI extends JFrame {
 			this.state = Enum.State.E2;
 			activateButton(state);
 			showAbout();
+			break;
+		default:
 			break;
 		}
 
@@ -342,6 +336,8 @@ public class GUI extends JFrame {
 			activateButton(state);
 			System.exit(NORMAL);
 			break;
+		default:
+			break;
 		}
 
 	}
@@ -362,6 +358,8 @@ public class GUI extends JFrame {
 		case E2:
 			this.state = Enum.State.E2;
 			activateButton(state);
+			break;
+		default:
 			break;
 		}
 
@@ -395,6 +393,8 @@ public class GUI extends JFrame {
 			this.state = Enum.State.E1;
 			this.status.setText("Choose a file ...");
 			activateButton(state);
+			break;
+		default:
 			break;
 		}
 	}

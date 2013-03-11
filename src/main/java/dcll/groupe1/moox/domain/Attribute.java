@@ -22,8 +22,9 @@ public class Attribute {
 		if (obj instanceof Attribute) {
 			Attribute a = (Attribute) obj;
 			return a.name.equals(this.name) && a.value.equals(this.value);
-		} else
+		} else {
 			return false;
+		}
 	}
 
 	/**
