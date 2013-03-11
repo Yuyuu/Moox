@@ -15,6 +15,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.filechooser.FileFilter;
 
 import dcll.groupe1.moox.GUI.Enum.State;
@@ -42,6 +44,17 @@ public class GUI extends JFrame {
 	}
 
 	private void initComponents() {
+		//Initialisation du lookAndFeel
+		try {
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					UIManager.put("nimbusBlueGrey", new Color(190, 191, 193));
+					UIManager.setLookAndFeel(info.getClassName());
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		ouvrir = new JButton();
 		convert = new JButton();
