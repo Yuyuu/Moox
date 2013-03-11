@@ -15,18 +15,32 @@ import dcll.groupe1.moox.domain.Tag;
 import dcll.groupe1.moox.parser.ParserException;
 import dcll.groupe1.moox.parser.ParserInterface;
 
+/**
+ * Provides methods to parse a XML file into a Tag.
+ * 
+ * @see Tag
+ * 
+ * @author ?
+ */
 public class XmlParser implements ParserInterface {
 
+	/**
+	 * The root of the XML file.
+	 */
 	private Tag rootTag;
 
 	public XmlParser() {
 		this.rootTag = new Tag();
 	}
 
-	public Tag getTag() {
-		return this.rootTag;
-	}
-
+	/**
+	 * Parses the nodes of a XML file.
+	 * 
+	 * @param l
+	 * 			list of the children Elements
+	 * @return 
+	 * 			the Tag list parsed from the XML file
+	 */
 	private ArrayList<Tag> parseSinceRoot(List<?> l) {
 
 		Tag t;
@@ -55,6 +69,14 @@ public class XmlParser implements ParserInterface {
 		return tagList;
 	}
 
+	/**
+	 * Adds a list of Tags in a Tag.
+	 * 
+	 * @param tag
+	 * 			the Tag to add the list in
+	 * @param l
+	 * 			the list of Tags to add
+	 */
 	private void addListTagInTag(Tag tag, ArrayList<Tag> l) {
 		for (Iterator<Tag> i = l.iterator(); i.hasNext();) {
 			Tag courant = (Tag) i.next();
@@ -62,12 +84,23 @@ public class XmlParser implements ParserInterface {
 		}
 	}
 
+	/**
+	 * Displays the Tag content of the XML parsed file.
+	 */
 	public void affiche() {
 		ArrayList<Tag> alt = new ArrayList<Tag>();
 		alt.add(rootTag);
 		afficheListTags(alt, 0);
 	}
 
+	/**
+	 * Displays of list of Tags.
+	 * 
+	 * @param l
+	 * 			the list to display
+	 * @param tabul
+	 * 			number of tabulations to insert
+	 */
 	private void afficheListTags(ArrayList<Tag> l, int tabul) {
 		for (Iterator<Tag> i = l.iterator(); i.hasNext();) {
 			for (int j = 0; j < tabul; j++)
@@ -84,6 +117,9 @@ public class XmlParser implements ParserInterface {
 		}
 	}
 
+	/**
+	 * @see ParserInterface#parse(URI)
+	 */
 	public Tag parse(URI uri) throws ParserException {
 		Element root;
 		Document doc = new Document();

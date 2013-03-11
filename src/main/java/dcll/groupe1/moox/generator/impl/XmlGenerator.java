@@ -12,7 +12,7 @@ import dcll.groupe1.moox.generator.GeneratorInterface;
 
 /**
  * The class XmlGenerator provides the method to generate a XML formatted string
- * of a given tag.
+ * of a given Tag.
  * 
  * @author Vincent
  */

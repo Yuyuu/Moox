@@ -22,21 +22,72 @@ import javax.swing.filechooser.FileFilter;
 import dcll.groupe1.moox.GUI.Enum.State;
 import dcll.groupe1.moox.GUI.Parse;
 
+/**
+ * The graphical user interface of the application.
+ * 
+ * @author ?
+ */
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
 
+	/**
+	 * Open button.
+	 */
 	private JButton ouvrir;
+	
+	/**
+	 * Convert button.
+	 */
 	private JButton convert;
+	
+	/**
+	 * URL button.
+	 */
 	private JButton url;
+	
+	/**
+	 * File menu.
+	 */
 	private JMenu fichier;
+	
+	/**
+	 * About menu.
+	 */
 	private JMenu interr;
+	
+	/**
+	 * Exit menu item
+	 */
 	private JMenuItem quitter;
+	
+	/**
+	 * About menu item.
+	 */
 	private JMenuItem apropos;
+	
+	/**
+	 * Menu bar.
+	 */
 	private JMenuBar barre;
+	
+	/**
+	 * URL/Path field.
+	 */
 	private JTextField status;
+	
+	/**
+	 * Content pane.
+	 */
 	private JPanel panel;
 
+	/**
+	 * State in which the application is.
+	 */
 	private State state;
+	
+	/**
+	 * Last component clicked.
+	 */
 	private String lastClick;
 
 	public GUI() {
@@ -44,8 +95,11 @@ public class GUI extends JFrame {
 		init();
 	}
 
+	/**
+	 * Initializes the components.
+	 */
 	private void initComponents() {
-		//Initialisation du lookAndFeel
+		// Initialisation du lookAndFeel
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
@@ -131,11 +185,20 @@ public class GUI extends JFrame {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Initializes the state of the application.
+	 */
 	private void init() {
 		this.state = Enum.State.E1;
 		activateButton(state);
 	}
 
+	/**
+	 * Activates the buttons based on the state of the application
+	 * 
+	 * @param s
+	 * 			the current state
+	 */
 	private void activateButton(State s) {
 		switch (s) {
 		case E1:
@@ -166,6 +229,12 @@ public class GUI extends JFrame {
 	 * la méthode d'ouverture d'un fichier, le "A propos" etc ...
 	 */
 
+	/**
+	 * ActionPerformed of the Open button.
+	 * 
+	 * @param evt
+	 * 			the event
+	 */
 	private void ouvrirActionPerformed(java.awt.event.ActionEvent evt) {
 		selectionFichier();
 		switch (this.state) {
@@ -181,6 +250,9 @@ public class GUI extends JFrame {
 
 	}
 
+	/**
+	 * Handles the file selection.
+	 */
 	private void selectionFichier() {
 		JFileChooser chooser = new JFileChooser();// création dun nouveau
 													// filechosser
@@ -220,6 +292,12 @@ public class GUI extends JFrame {
 		}
 	}
 
+	/**
+	 * ActionPerformed of the About MenuItem.
+	 * 
+	 * @param evt
+	 * 			the event
+	 */
 	private void aproposActionPerformed(java.awt.event.ActionEvent evt) {
 		switch (this.state) {
 		case E1:
@@ -236,12 +314,21 @@ public class GUI extends JFrame {
 
 	}
 
+	/**
+	 * Displays the About Dialog
+	 */
 	private void showAbout() {
 		JOptionPane.showMessageDialog(this.panel,
 				"Made by Yuyuu Team\n Moox project",
 				"About " + this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	/**
+	 * ActionPerformed of the Exit MenuItem
+	 * 
+	 * @param evt
+	 * 			the event
+	 */
 	private void quitterActionPerformed(java.awt.event.ActionEvent evt) {
 
 		switch (this.state) {
@@ -259,6 +346,12 @@ public class GUI extends JFrame {
 
 	}
 
+	/**
+	 * ActionPerformed of the URL button.
+	 * 
+	 * @param evt
+	 * 			the event
+	 */
 	private void urlActionPerformed(java.awt.event.ActionEvent evt) {
 		selectionUrl();
 		switch (this.state) {
@@ -274,6 +367,9 @@ public class GUI extends JFrame {
 
 	}
 
+	/**
+	 * Edits the GUI when an event occurs on the URL button.
+	 */
 	private void selectionUrl() {
 		this.lastClick = "URL";
 		this.status.setText("Entrez l'URL");
@@ -282,6 +378,12 @@ public class GUI extends JFrame {
 		this.status.setEnabled(true);
 	}
 
+	/**
+	 * ActionPerformed of the Convert button
+	 * 
+	 * @param evt
+	 * 			the event
+	 */
 	private void convertActionPerformed(java.awt.event.ActionEvent evt) {
 
 		switch (state) {
