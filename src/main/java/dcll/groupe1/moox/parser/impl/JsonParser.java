@@ -33,10 +33,8 @@ public class JsonParser implements ParserInterface {
 			tree = mapper.readTree(new File(uri));
 			tag = parseTag(tree);
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return tag;
@@ -57,12 +55,14 @@ public class JsonParser implements ParserInterface {
 			// si non { ou [
 			if (!value.isContainerNode()) {
 				// Si la valeur en question est nulle alors on donne la valeur nulle au tag
-				if(value.isNull()) 
+				if (value.isNull()) {
 					t.setValue(null);
+				}
 				
 				// Sinon on lui donne sa valeur effective
-				else
+				else {
 					t.setValue(value.asText());
+				}
 			} else if (value.isArray()) {
 				// tableau d'attributs ou de subtags
 				switch (node.getKey().charAt(0)) {
@@ -85,6 +85,8 @@ public class JsonParser implements ParserInterface {
 						JsonNode subTag = sub.next();
 						t.addTag(parseTag(subTag));
 					}
+					break;
+				default:
 					break;
 				}
 			} else if (value.isObject()) {

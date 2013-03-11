@@ -32,10 +32,12 @@ public class Pair<L, R> {
 	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean equals(Object o) {
-		if (o == null)
+		if (o == null) {
 			return false;
-		if (!(o instanceof Pair))
+		}
+		if (!(o instanceof Pair)) {
 			return false;
+		}
 		Pair pairo = (Pair) o;
 		return this.left.equals(pairo.getLeft())
 				&& this.right.equals(pairo.getRight());

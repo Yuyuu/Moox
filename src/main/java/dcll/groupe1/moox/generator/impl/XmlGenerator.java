@@ -19,9 +19,10 @@ import dcll.groupe1.moox.generator.GeneratorInterface;
 public class XmlGenerator implements GeneratorInterface {
 
 	public String generate(Tag root) throws GeneratorException {
-		if (root == null)
+		if (root == null) {
 			throw new GeneratorException(
 					"Pas d'élément racine, impossible de générer le fichier.");
+		}
 
 		// XML document
 		Document doc = new Document();
@@ -30,8 +31,9 @@ public class XmlGenerator implements GeneratorInterface {
 		Element xmlRoot = new Element(root.getName()).setText(root.getValue());
 
 		// Attributes of the root
-		for (Attribute att : root.getAttributes())
+		for (Attribute att : root.getAttributes()) {
 			xmlRoot.setAttribute(att.getName(), att.getValue());
+		}
 
 		// Generation of children nodes
 		addDescendants(xmlRoot, root);
@@ -55,8 +57,9 @@ public class XmlGenerator implements GeneratorInterface {
 		for (Tag tag : content.getSubTags()) {
 			Element child = new Element(tag.getName()).setText(tag.getValue());
 
-			for (Attribute att : tag.getAttributes())
+			for (Attribute att : tag.getAttributes()) {
 				child.setAttribute(att.getName(), att.getValue());
+			}
 
 			addDescendants(child, tag);
 			node.addContent(child);

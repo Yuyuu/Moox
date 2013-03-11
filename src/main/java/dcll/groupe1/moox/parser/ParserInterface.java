@@ -24,5 +24,5 @@ public interface ParserInterface {
 	 * @throws ParserException
 	 *             If an error occurred during the parsing.
 	 */
-	public Tag parse(URI uri) throws ParserException;
+	Tag parse(URI uri) throws ParserException;
 }
