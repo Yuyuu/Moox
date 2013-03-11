@@ -49,10 +49,7 @@
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
 							<artifactId>maven-checkstyle-plugin</artifactId>
-							<version>2.6</version>
-							<configuration>
-					          <configLocation>check.xml</configLocation>
-					        </configuration>
+							<version>2.5</version>
 						</plugin>
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
