@@ -55,6 +55,7 @@ public class Parse {
 			} catch (MalformedURLException e) {
 				JOptionPane.showMessageDialog(j, "This URL is not valid",
 						"URL invalid", 1);
+				return; // sinon le code continue de dérouler
 			}
 			test = url.toString();
 
